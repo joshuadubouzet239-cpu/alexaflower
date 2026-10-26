@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Bouquet for Alexa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="intro">
+        <p class="eyebrow">A little something for Alexa</p>
+        <h1>Flowers for you</h1>
+        <p class="subtitle">A hand-tied bouquet, made with love.</p>
+      </header>
+
+      <section class="letter-scene" aria-label="Animated letter for Alexa">
+        <div class="letter-envelope" id="letterEnvelope">
+          <div class="envelope-back"></div>
+          <article class="letter-paper" id="letterPaper" aria-labelledby="letterTitle" tabindex="0" inert>
+            <div class="letter-heading">
+              <span class="letter-flower" aria-hidden="true">✿</span>
+              <div>
+                <p class="eyebrow">A little note for you</p>
+                <h2 id="letterTitle">Dear Alexa,</h2>
+              </div>
+            </div>
+            <div class="letter-copy">
+              <p>Hi, Alexa. Good morning! It’s me, Joshua, your annoying suitor.</p>
+              <p>
+                I just wanted to write you a letter because I felt like it, because I love you so much,
+                and because every day I’m with you is a gift. You’re the first thing I think about in
+                the morning and the last thing I think about at night.
+              </p>
+              <p>
+                Also, Alexa, you’re my favorite notification on Messenger, IG, and TikTok. I love you
+                not only because of who you are, but because of who I become when I’m with you. &lt;3
+              </p>
+              <p>
+                And one last thing, Alexa: ayaw pa gahi-gahi ulo, and have a nice day. Enjoy your day!
+              </p>
+              <p class="letter-signoff">From your only Jestch <span>(: &lt;3</span></p>
+            </div>
+          </article>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap"></div>
+          <button class="envelope-seal" id="envelopeButton" type="button" aria-expanded="false" aria-controls="letterPaper" aria-label="Open your letter">
+            <span class="seal-heart" aria-hidden="true">♥</span>
+            <span class="envelope-hint" id="envelopeHint">Open your letter</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="bouquet-card" aria-label="A bouquet of pink flowers">
+        <div class="canvas-wrap">
+          <canvas id="scene" width="800" height="800" aria-label="Animated illustrated bouquet of roses and daisies"></canvas>
+        </div>
+        <div class="music-card">
+          <div class="music-art" aria-hidden="true">♫</div>
+          <div class="track-info">
+            <p class="track-label">A song for this bouquet</p>
+            <h2>love.</h2>
+            <p class="artist">wave to earth</p>
+          </div>
+          <button class="play-button" id="playButton" type="button" aria-label="Play love. by wave to earth">
+            <span id="playIcon" aria-hidden="true">▶</span>
+            <span id="playLabel">Play love.</span>
+          </button>
+          <audio id="song" src="love.mp3" autoplay loop preload="auto">
+            Your browser does not support audio playback.
+          </audio>
+          <p class="music-status" id="musicStatus" aria-live="polite">
+            Add the song file as <code>love.mp3</code> in the project folder.
+          </p>
+        </div>
+      </section>
+
+      <footer class="footer-note">Made with love, just for you <span aria-hidden="true">♡</span></footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
