@@ -91,7 +91,31 @@ canvas {
   height: auto;
   aspect-ratio: 1;
   border-radius: 20px;
+  cursor: grab;
+  touch-action: pan-y;
 }
+canvas:active { cursor: grabbing; }
+.bouquet-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 22px 20px;
+}
+.bouquet-action {
+  border: 1px solid #e8c5c3;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #fff8f5;
+  color: #895b65;
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.bouquet-action:hover { transform: translateY(-2px); background: #ffedf0; box-shadow: 0 5px 14px #b8798522; }
+.bouquet-action:focus-visible { outline: 3px solid #d98b9c; outline-offset: 3px; }
+.bouquet-hint { margin: 0; padding: 0 22px 18px; text-align: center; color: #a17e7a; font-size: .8rem; }
 
 .music-card {
   display: grid;
@@ -651,25 +675,18 @@ body.locked {
               <span class="letter-flower" aria-hidden="true">✿</span>
               <div>
                 <p class="eyebrow">A little note for you</p>
-                <h2 id="letterTitle">Dear Alexa,</h2>
+                <h2 id="letterTitle">Good morning, Alexaaa! 💓</h2>
               </div>
             </div>
             <div class="letter-copy">
-              <p>Hi, Alexa. Good morning! It’s me, Joshua, your annoying suitor.</p>
-              <p>
-                I just wanted to write you a letter because I felt like it, because I love you so much,
-                and because every day I’m with you is a gift. You’re the first thing I think about in
-                the morning and the last thing I think about at night.
-              </p>
-              <p>
-                Also, Alexa, you’re my favorite notification on Messenger, IG, and TikTok. I love you
-                not only because of who you are, but because of who I become when I’m with you. &lt;3
-              </p>
-              <p>
-                And one last thing, Alexa: ayaw pa gahi-gahi ulo, and have a nice day. Enjoy your day!
-              </p>
-              <p>I will always be here for you, Alexa. &lt;3</p>
-              <p class="letter-signoff">From your only Jestch <span>(: &lt;3</span></p>
+              <p>Good morning, Alexaaa! 💓</p>
+              <p>I just want to start by saying that I’m really sorry for making you worried about me. I know you told me things that I should have listened to, and I’m sorry because I didn’t do what you asked me to do. I never wanted to make you feel worried, stressed, or overthink because of me.</p>
+              <p>The truth is, I was just really worried about you. I wanted to go with you and make sure you got home safely. I know sometimes I can be stubborn, and I don’t always follow what you tell me, but please understand that my intentions were never to upset you or make things difficult. I just care about you so much, and sometimes my concern for you makes me forget that I also need to listen to what you’re saying.</p>
+              <p>I know that caring about someone isn’t just about worrying over them. It’s also about respecting their words, understanding their feelings, and listening to what they need. I want you to know that I’m learning to do better, not just by saying sorry but by showing it through my actions.</p>
+              <p>Please don’t think that your feelings don’t matter to me, because they matter more than you know. I don’t want you to lose your peace of mind because of me. I want to be someone who makes you feel safe, loved, and understood, not someone who gives you another reason to worry.</p>
+              <p>Again, I’m really sorry, Alexaaa. I hope you understand where I’m coming from. I love you so much, and I promise to be more mindful of my actions and listen to you better next time.</p>
+              <p>Always remember that you are important to me. I care about you, your safety, your feelings, and your happiness.</p>
+              <p class="letter-signoff">Have a wonderful morning, my alexaaa, I love you always. ❤️</p>
             </div>
           </article>
           <div class="envelope-front"></div>
@@ -685,6 +702,11 @@ body.locked {
         <div class="canvas-wrap">
           <canvas id="scene" width="800" height="800" aria-label="Animated illustrated bouquet of roses and daisies"></canvas>
         </div>
+        <div class="bouquet-actions" aria-label="Bouquet interactions">
+          <button class="bouquet-action" id="loveBurstButton" type="button">♡ Send love</button>
+          <button class="bouquet-action" id="breezeButton" type="button" aria-pressed="false">☁ Make it sway</button>
+        </div>
+        <p class="bouquet-hint" id="bouquetHint" aria-live="polite">Tap the flowers or gently drag to make the bouquet dance.</p>
         <div class="music-card">
           <div class="music-art" aria-hidden="true">♫</div>
           <div class="track-info">
@@ -944,8 +966,45 @@ function drawWrapper() {
     ctx.stroke();
 }
 
+let breezeOn = false;
+let interactionSway = 0;
+let dragSway = 0;
+let particles = [];
+let lastPointer = null;
+
+function addLoveBurst(x = 400, y = 285) {
+    const symbols = ['♥', '✿', '✧', '♡'];
+    for (let i = 0; i < 22; i += 1) {
+        const angle = (Math.PI * 2 * i) / 22 + Math.random() * 0.18;
+        const speed = 0.8 + Math.random() * 2.2;
+        particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 1.1,
+            life: 1, size: 10 + Math.random() * 13, symbol: symbols[i % symbols.length], spin: (Math.random() - .5) * .08 });
+    }
+    interactionSway = 0.075;
+}
+
+function drawParticles() {
+    particles = particles.filter((particle) => particle.life > 0);
+    particles.forEach((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vy -= 0.012;
+        particle.life -= 0.012;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, particle.life);
+        ctx.font = `${particle.size}px serif`;
+        ctx.textAlign = 'center';
+        ctx.fillStyle = particle.symbol === '♥' || particle.symbol === '♡' ? '#d96f8a' : '#c98d91';
+        ctx.fillText(particle.symbol, particle.x, particle.y);
+        ctx.restore();
+    });
+}
+
 function drawBouquet(time) {
-    const sway = Math.sin(time * 0.65) * 0.012;
+    interactionSway *= 0.965;
+    dragSway *= 0.92;
+    const breeze = breezeOn ? 0.035 : 0;
+    const sway = Math.sin(time * (breezeOn ? 1.35 : 0.65)) * (0.012 + breeze) + interactionSway + dragSway;
     ctx.save();
     ctx.translate(400, 380);
     ctx.rotate(sway);
@@ -978,6 +1037,7 @@ function animate(now) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground(time);
     drawBouquet(time);
+    drawParticles();
     requestAnimationFrame(animate);
 }
 
@@ -990,6 +1050,43 @@ const letterEnvelope = document.getElementById('letterEnvelope');
 const letterPaper = document.getElementById('letterPaper');
 const envelopeButton = document.getElementById('envelopeButton');
 const envelopeHint = document.getElementById('envelopeHint');
+const loveBurstButton = document.getElementById('loveBurstButton');
+const breezeButton = document.getElementById('breezeButton');
+const bouquetHint = document.getElementById('bouquetHint');
+
+function canvasPoint(event) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: (event.clientX - rect.left) * canvas.width / rect.width,
+        y: (event.clientY - rect.top) * canvas.height / rect.height };
+}
+
+canvas.addEventListener('pointerdown', (event) => {
+    lastPointer = canvasPoint(event);
+    canvas.setPointerCapture?.(event.pointerId);
+});
+canvas.addEventListener('pointermove', (event) => {
+    if (!lastPointer) return;
+    const point = canvasPoint(event);
+    dragSway = Math.max(-0.09, Math.min(0.09, (point.x - lastPointer.x) * 0.0018));
+    lastPointer = point;
+});
+canvas.addEventListener('pointerup', (event) => {
+    const point = canvasPoint(event);
+    addLoveBurst(point.x, point.y);
+    bouquetHint.textContent = 'A little love is floating your way. ♡';
+    lastPointer = null;
+});
+canvas.addEventListener('pointercancel', () => { lastPointer = null; });
+loveBurstButton.addEventListener('click', () => {
+    addLoveBurst(400, 300);
+    bouquetHint.textContent = 'Sending a shower of love just for you. ♥';
+});
+breezeButton.addEventListener('click', () => {
+    breezeOn = !breezeOn;
+    breezeButton.setAttribute('aria-pressed', String(breezeOn));
+    breezeButton.textContent = breezeOn ? '❀ Stop the breeze' : '☁ Make it sway';
+    bouquetHint.textContent = breezeOn ? 'A soft breeze is dancing through your flowers.' : 'The bouquet is resting softly.';
+});
 
 function updatePlaybackButton(isPlaying) {
     playIcon.textContent = isPlaying ? 'Ⅱ' : '▶';
