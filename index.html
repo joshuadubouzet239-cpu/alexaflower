@@ -651,25 +651,31 @@ body.locked {
               <span class="letter-flower" aria-hidden="true">✿</span>
               <div>
                 <p class="eyebrow">A little note for you</p>
-                <h2 id="letterTitle">Dear Alexa,</h2>
+                <h2 id="letterTitle">Dear Alexa, ❤️</h2>
               </div>
             </div>
             <div class="letter-copy">
-              <p>Hi, Alexa. Good morning! It’s me, Joshua, your annoying suitor.</p>
+              <p>Good morning, Alexa! ❤️</p>
+              <p>It's me, your annoying suitor, Joshua. I just wanted to write you a little letter to remind you how special you are to me.</p>
               <p>
-                I just wanted to write you a letter because I felt like it, because I love you so much,
-                and because every day I’m with you is a gift. You’re the first thing I think about in
-                the morning and the last thing I think about at night.
+                I may not always find the perfect words to express how much I care about you, but I hope you know that having you in my life means so much to me. Every moment I get to spend with you is something I genuinely appreciate. You're one of the first people I think about when I wake up and someone I carry in my thoughts before I fall asleep.
               </p>
               <p>
-                Also, Alexa, you’re my favorite notification on Messenger, IG, and TikTok. I love you
-                not only because of who you are, but because of who I become when I’m with you. &lt;3
+                You know, Alexa, you're my favorite notification on Messenger, Instagram, and TikTok. No matter how busy my day gets, seeing a message from you always brings a smile to my face. It's not just about how much I love you, but also about how happy and comfortable I feel whenever I'm talking to you or spending time with you.
               </p>
               <p>
-                And one last thing, Alexa: ayaw pa gahi-gahi ulo, and have a nice day. Enjoy your day!
+                I hope you never forget that you deserve all the love, happiness, and kindness in this world. Please take good care of yourself, don't forget to rest, and always remember that you don't have to face everything alone.
               </p>
-              <p>I will always be here for you, Alexa. &lt;3</p>
-              <p class="letter-signoff">From your only Jestch <span>(: &lt;3</span></p>
+              <p>
+                And one last thing, Alexa: ayaw pa gahi-gahi og ulo, ha? HAHAHA. Always listen to yourself, stay safe, and enjoy your day. I hope today gives you plenty of reasons to smile.
+              </p>
+              <p>
+                I'll always be here to support you, cheer you on, and care for you in every way I can. No matter how simple or ordinary the day may be, I'll always be grateful to have you in my life.
+              </p>
+              <p>
+                Have a wonderful day, Alexa. You're someone worth appreciating, today and every day. ❤️
+              </p>
+              <p class="letter-signoff">With love,<br>Your annoying suitor,<br><span>Joshua</span></p>
             </div>
           </article>
           <div class="envelope-front"></div>
@@ -742,303 +748,4 @@ const bouquet = [
     { x: 320, y: 300, size: 46, type: 'daisy', color: '#fff0d4', phase: 0.4 },
     { x: 410, y: 270, size: 48, type: 'rose', color: '#e77c92', phase: 0.7 },
     { x: 490, y: 305, size: 46, type: 'daisy', color: '#fff3dd', phase: 0.2 },
-    { x: 585, y: 295, size: 39, type: 'rose', color: '#df617d', phase: 0.9 },
-    { x: 265, y: 390, size: 37, type: 'daisy', color: '#f3b8c5', phase: 0.7 },
-    { x: 375, y: 385, size: 41, type: 'rose', color: '#ce456b', phase: 0.3 },
-    { x: 520, y: 390, size: 37, type: 'daisy', color: '#f4a4b8', phase: 0.5 },
-];
-
-const leaves = [
-    { x: 350, y: 465, angle: -2.5, length: 170 },
-    { x: 425, y: 470, angle: -0.5, length: 155 },
-    { x: 385, y: 500, angle: 2.75, length: 145 },
-    { x: 455, y: 470, angle: 0.4, length: 125 },
-    { x: 330, y: 480, angle: 3.5, length: 140 },
-    { x: 410, y: 470, angle: 1.5, length: 135 },
-    { x: 470, y: 450, angle: -0.15, length: 110 },
-    { x: 310, y: 440, angle: 3.3, length: 100 },
-];
-
-const sprigs = Array.from({ length: 24 }, (_, index) => ({
-    x: 170 + ((index * 83) % 460),
-    y: 100 + ((index * 47) % 480),
-    size: 2 + (index % 3),
-    phase: index * 1.9,
-}));
-
-function drawBackground(time) {
-    const gradient = ctx.createLinearGradient(0, 0, 800, 800);
-    gradient.addColorStop(0, '#fffaf2');
-    gradient.addColorStop(0.58, '#f9eee5');
-    gradient.addColorStop(1, '#f2e0dc');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 800, 800);
-
-    const halo = ctx.createRadialGradient(400, 320, 35, 400, 340, 390);
-    halo.addColorStop(0, 'rgba(255,255,255,0.92)');
-    halo.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = halo;
-    ctx.fillRect(0, 0, 800, 800);
-
-    sprigs.forEach((sprig) => {
-        const twinkle = 0.3 + (Math.sin(time * 1.3 + sprig.phase) + 1) * 0.18;
-        ctx.fillStyle = `rgba(193, 145, 126, ${twinkle})`;
-        ctx.beginPath();
-        ctx.arc(sprig.x, sprig.y, sprig.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
-}
-
-function drawLeaf(x, y, angle, length, color = '#618269') {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.fillStyle = color;
-    ctx.strokeStyle = 'rgba(47, 91, 67, 0.45)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(length * 0.18, -length * 0.46, length * 0.82, -length * 0.34, length, 0);
-    ctx.bezierCurveTo(length * 0.68, length * 0.34, length * 0.22, length * 0.34, 0, 0);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(3, 0);
-    ctx.quadraticCurveTo(length * 0.52, 0, length * 0.94, 0);
-    ctx.strokeStyle = 'rgba(226, 238, 208, 0.66)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.restore();
-}
-
-function drawStem(x1, y1, x2, y2, width = 5) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.quadraticCurveTo((x1 + x2) / 2 - 12, (y1 + y2) / 2, x2, y2);
-    ctx.strokeStyle = '#52775e';
-    ctx.lineWidth = width;
-    ctx.lineCap = 'round';
-    ctx.stroke();
-}
-
-function drawPetal(x, y, length, width, angle, color, alpha = 1) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(-width * 0.45, -length * 0.42, -width * 0.38, -length * 0.88, 0, -length);
-    ctx.bezierCurveTo(width * 0.38, -length * 0.88, width * 0.45, -length * 0.42, 0, 0);
-    ctx.fill();
-    ctx.restore();
-}
-
-function drawDaisy(flower, time) {
-    const pulse = 1 + Math.sin(time * 1.5 + flower.phase) * 0.018;
-    const petals = 10;
-    for (let i = 0; i < petals; i += 1) {
-        const angle = (Math.PI * 2 * i) / petals + flower.phase * 0.1;
-        drawPetal(
-            flower.x,
-            flower.y,
-            flower.size * 1.03 * pulse,
-            flower.size * 0.43,
-            angle,
-            i % 2 === 0 ? flower.color : mixColor(flower.color, '#ffffff', 0.17),
-        );
-    }
-
-    ctx.fillStyle = '#d99545';
-    ctx.beginPath();
-    ctx.arc(flower.x, flower.y, flower.size * 0.32, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#f5d58b';
-    ctx.beginPath();
-    ctx.arc(flower.x - flower.size * 0.07, flower.y - flower.size * 0.08, flower.size * 0.19, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-function drawRose(flower, time) {
-    const pulse = 1 + Math.sin(time * 1.2 + flower.phase) * 0.015;
-    for (let layer = 0; layer < 3; layer += 1) {
-        const count = 6 + layer * 2;
-        const radius = flower.size * (0.53 - layer * 0.13) * pulse;
-        const petalSize = flower.size * (0.7 - layer * 0.12);
-        const offset = flower.phase + layer * 0.36;
-        for (let i = 0; i < count; i += 1) {
-            const angle = (Math.PI * 2 * i) / count + offset;
-            const px = flower.x + Math.cos(angle) * radius * 0.42;
-            const py = flower.y + Math.sin(angle) * radius * 0.42;
-            drawPetal(px, py, petalSize, petalSize * 0.72, angle, layer === 0 ? mixColor(flower.color, '#752c47', 0.18) : flower.color);
-        }
-    }
-    ctx.fillStyle = mixColor(flower.color, '#fff1dc', 0.28);
-    ctx.beginPath();
-    ctx.arc(flower.x, flower.y, flower.size * 0.2, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-function mixColor(first, second, amount) {
-    const a = first.match(/[a-f\d]{2}/gi).map((value) => parseInt(value, 16));
-    const b = second.match(/[a-f\d]{2}/gi).map((value) => parseInt(value, 16));
-    return `#${a.map((value, index) => Math.round(value + (b[index] - value) * amount).toString(16).padStart(2, '0')).join('')}`;
-}
-
-function drawWrapper() {
-    ctx.save();
-    ctx.shadowColor = 'rgba(91, 52, 48, 0.18)';
-    ctx.shadowBlur = 18;
-    ctx.shadowOffsetY = 10;
-    ctx.beginPath();
-    ctx.moveTo(165, 405);
-    ctx.quadraticCurveTo(400, 475, 635, 405);
-    ctx.lineTo(512, 710);
-    ctx.quadraticCurveTo(400, 760, 288, 710);
-    ctx.closePath();
-    ctx.fillStyle = '#f3c7b3';
-    ctx.fill();
-    ctx.restore();
-
-    const paper = ctx.createLinearGradient(230, 425, 570, 695);
-    paper.addColorStop(0, '#fff0df');
-    paper.addColorStop(0.5, '#f7dbc9');
-    paper.addColorStop(1, '#ecc0b2');
-    ctx.beginPath();
-    ctx.moveTo(190, 425);
-    ctx.quadraticCurveTo(400, 495, 610, 425);
-    ctx.lineTo(500, 690);
-    ctx.quadraticCurveTo(400, 725, 300, 690);
-    ctx.closePath();
-    ctx.fillStyle = paper;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(177, 119, 104, 0.35)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(190, 425);
-    ctx.quadraticCurveTo(290, 550, 300, 690);
-    ctx.quadraticCurveTo(400, 610, 400, 495);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.36)';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(610, 425);
-    ctx.quadraticCurveTo(510, 550, 500, 690);
-    ctx.quadraticCurveTo(400, 610, 400, 495);
-    ctx.fillStyle = 'rgba(217, 151, 133, 0.18)';
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(400, 652);
-    ctx.bezierCurveTo(365, 618, 330, 650, 350, 677);
-    ctx.bezierCurveTo(365, 697, 390, 704, 400, 714);
-    ctx.bezierCurveTo(414, 700, 443, 691, 452, 672);
-    ctx.bezierCurveTo(466, 643, 430, 620, 400, 652);
-    ctx.fillStyle = '#bd6e78';
-    ctx.fill();
-    ctx.strokeStyle = '#a25465';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-}
-
-function drawBouquet(time) {
-    const sway = Math.sin(time * 0.65) * 0.012;
-    ctx.save();
-    ctx.translate(400, 380);
-    ctx.rotate(sway);
-    ctx.translate(-400, -380);
-
-    bouquet.forEach((flower) => {
-        const endpointX = 400 + (flower.x - 400) * 0.16;
-        drawStem(flower.x, flower.y + flower.size * 0.5, endpointX, 680, 4);
-    });
-
-    leaves.forEach((leaf, index) => {
-        drawLeaf(leaf.x, leaf.y, leaf.angle + Math.sin(time + index) * 0.015, leaf.length, index % 2 ? '#6e9274' : '#547d66');
-    });
-
-    drawWrapper();
-
-    bouquet.forEach((flower) => {
-        if (flower.type === 'daisy') {
-            drawDaisy(flower, time);
-        } else {
-            drawRose(flower, time);
-        }
-    });
-
-    ctx.restore();
-}
-
-function animate(now) {
-    const time = now * 0.001;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBackground(time);
-    drawBouquet(time);
-    requestAnimationFrame(animate);
-}
-
-const song = document.getElementById('song');
-const playButton = document.getElementById('playButton');
-const playIcon = document.getElementById('playIcon');
-const playLabel = document.getElementById('playLabel');
-const musicStatus = document.getElementById('musicStatus');
-const letterEnvelope = document.getElementById('letterEnvelope');
-const letterPaper = document.getElementById('letterPaper');
-const envelopeButton = document.getElementById('envelopeButton');
-const envelopeHint = document.getElementById('envelopeHint');
-
-function updatePlaybackButton(isPlaying) {
-    playIcon.textContent = isPlaying ? 'Ⅱ' : '▶';
-    playLabel.textContent = isPlaying ? 'Pause song' : 'Play love.';
-    playButton.setAttribute('aria-label', `${isPlaying ? 'Pause' : 'Play'} love. by wave to earth`);
-}
-
-playButton.addEventListener('click', () => {
-    if (!song.paused) {
-        song.pause();
-        return;
-    }
-
-    song.play().catch(() => {
-        musicStatus.textContent = 'Could not play the song. Check that love.mp3 is uploaded beside index.html.';
-    });
-});
-
-song.addEventListener('play', () => {
-    updatePlaybackButton(true);
-    musicStatus.textContent = 'Now playing love. by wave to earth.';
-});
-
-song.addEventListener('pause', () => updatePlaybackButton(false));
-song.addEventListener('error', () => {
-    updatePlaybackButton(false);
-    musicStatus.textContent = 'Song file not found. Upload love.mp3 beside index.html in your GitHub repository.';
-});
-
-envelopeButton.addEventListener('click', () => {
-    const isOpen = letterEnvelope.classList.toggle('is-open');
-    letterEnvelope.closest('.letter-scene').classList.toggle('is-open', isOpen);
-    envelopeButton.setAttribute('aria-expanded', String(isOpen));
-    envelopeButton.setAttribute('aria-label', `${isOpen ? 'Close' : 'Open'} your letter`);
-    envelopeHint.textContent = isOpen ? 'Scroll to read · click to close' : 'Open your letter';
-    letterPaper.inert = !isOpen;
-
-    if (isOpen) {
-        song.play().catch(() => {
-            musicStatus.textContent = 'Could not play the song. Check that love.mp3 is uploaded beside index.html.';
-        });
-    }
-});
-
-song.play().catch(() => {
-    musicStatus.textContent = 'Autoplay may be blocked by your browser. Press Play love. to start the song.';
-});
-
-requestAnimationFrame(animate);
-    </script>
-  </body>
-</html>
+    { x: 585, y:
